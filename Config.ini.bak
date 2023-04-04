@@ -31,7 +31,7 @@ txMatPathG_Matrix = "./mat_files/G_Matrix/";
 txMatPathResult_Matrix = "./mat_files/Result_Matrix/";
 
 txCoIntMatPath = "./mat_files/Cointegration/";
-txDbase = "./database/IPCA-baseOx_v1.xlsx";
+txDbase = "./database/IPCA-baseOx_v1.in7";
 txDbaseMacroVariables = "./database/db_oil_withSesonal.in7";
 
 decl aMacroVarNames;
@@ -40,9 +40,9 @@ decl aMacroVarNames;
 aMacroVarNames = {};
 
 // TRUE / FALSE;
-decl is_IIS_ON = TRUE;
+decl is_IIS_ON = FALSE;
 decl IIS_pvalue = 0.00000100;
-decl is_DUMMY_ON = FALSE;
+decl is_DUMMY_ON = TRUE;
 decl type_DUMMY = "U";
 
 // Ativa a impressao de

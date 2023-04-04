@@ -4,21 +4,32 @@
 
 //	mPhi: matrix dos coeficientes. Inicialmente uma matriz zerada [iQtdVarDependente x iQtdVarDependente*iQtdLags];
 //	iValue: vParamValues - Valor efetivo dos parametros
-//	sName: asParamNames - Nome dos parametros
+//	sName: asParamNames - Nome dos parametros da regressao do Ox
 //	iQtdLags: Quantidade de lags
 //	iRegDependente: Regiao dependente na regressao
 //	sVarSufix: Sufixo do nome da variavael "D_R"
+//	asTipo: variaveis dependentes ex: asTipo = {"Admitidos", "Desligados"};
 ProcessoPhi(mPhi, const iValue, const sName, const iQtdLags, const iRegDependente, const sVarSufix, const asTipo) {
     println("Processo Phi iniciado");
     decl iContRows, iContCols, iContVar, sParamName, index;
-    //asTipo = {"Admitidos", "Desligados"};
+
 
     for (iContRows = 0; iContRows < sizeof(asTipo); ++iContRows) {
         // Preenchimento da matrix Lambda
         for (iContCols = 0; iContCols < iQtdLags; ++iContCols) {
             for (iContVar = 0; iContVar < sizeof(asTipo); ++iContVar) {
-                // determina o nome das variaveis
+
+				// O Ox tem uma nomenclatura diferente quando temos regressao univariada
+				// por isso o tratamento abaixo
+				if(sizeof(asTipo) == 1)
+				{
+				sParamName = sprint(sVarSufix, iRegDependente, "_", asTipo[iContVar], "_", iContCols + 1);
+				}
+				else
+				{
+				// determina o nome das variaveis
                 sParamName = sprint(sVarSufix, iRegDependente, "_", asTipo[iContVar], "_", iContCols + 1, "@", sVarSufix, iRegDependente, "_", asTipo[iContRows]);
+				}
 
 				//println("Parametro procurado: ", sParamName);
                 index = strfind(sName, sParamName);
@@ -36,17 +47,17 @@ ProcessoPhi(mPhi, const iValue, const sName, const iQtdLags, const iRegDependent
 }
 
 
-
 //	mLambda: matrix dos coeficientes. Inicialmente uma matriz zerada [iQtdVarDependente x iQtdVarDependente*(iQtdLags+1)]
 //	iValue: vParamValues - Valor efetivo dos parametros
-//	sName: asParamNames - Nome dos parametros
+//	sName: asParamNames - Nome dos parametros da regressao do Ox
 //	iQtdLags: Quantidade de lags
 //	iRegDependente: Regiao dependente na regressao
-//	sVarSufix: Sufixo do nome da variavael "D_R"
+//	sVarSufix: Sufixo do nome da variavael star "D_R"
+//	sVarSufix2: Sufixo do nome da variavael dependente "D_R"
+//	asTipo: variaveis dependentes ex: asTipo = {"Admitidos", "Desligados"};
 ProcessoLambda(mLambda, const iValue, const sName, const iQtdLags, const iRegDependente, const sVarSufix, const sVarSufix2, const asTipo) {
     println("Processo Lambda iniciado");
     decl iContRows, iContCols, iContVar, sParamName, index;
-    //asTipo = {"Admitidos", "Desligados"};
 
     for (iContRows = 0; iContRows < sizeof(asTipo); ++iContRows) {
         // Preenchimento da matrix Lambda
@@ -55,11 +66,32 @@ ProcessoLambda(mLambda, const iValue, const sName, const iQtdLags, const iRegDep
                 // determina o nome das variaveis
                 if (iContCols == 0) {
                     // Determina o nome do parametro sem lag
-                    sParamName = sprint(sVarSufix, "star_", asTipo[iContVar], "@", sVarSufix2, iRegDependente, "_", asTipo[iContRows]);
+
+					// O Ox tem uma nomenclatura diferente quando temos regressao univariada
+					// por isso o tratamento abaixo
+					if(sizeof(asTipo) == 1)
+					{
+	                    sParamName = sprint(sVarSufix, "star_", asTipo[iContVar]);
+					}
+					else
+					{
+	                    sParamName = sprint(sVarSufix, "star_", asTipo[iContVar], "@", sVarSufix2, iRegDependente, "_", asTipo[iContRows]);
+					}
                 } else {
                     // Determina o nome do parametro COM lag
-                    sParamName = sprint(sVarSufix, "star_", asTipo[iContVar], "_", iContCols, "@", sVarSufix2, iRegDependente, "_", asTipo[iContRows]);
-                }
+
+					// O Ox tem uma nomenclatura diferente quando temos regressao univariada
+					// por isso o tratamento abaixo
+					if(sizeof(asTipo) == 1)
+					{
+						sParamName = sprint(sVarSufix, "star_", asTipo[iContVar], "_", iContCols);
+					}
+					else
+					{
+	                    sParamName = sprint(sVarSufix, "star_", asTipo[iContVar], "_", iContCols, "@", sVarSufix2, iRegDependente, "_", asTipo[iContRows]);
+					}
+
+				}
 
 				//println("Parametro procurado: ", sParamName);
                 index = strfind(sName, sParamName);
@@ -83,13 +115,15 @@ ProcessoLambda(mLambda, const iValue, const sName, const iQtdLags, const iRegDep
 //	iQtdLags: Quantidade de lags
 //	iRegDependente: Regiao dependente na regressao
 //	sVarSufix: Sufixo do nome da variavael "D_R"
+//	asTipo: variaveis dependentes ex: asTipo = {"Admitidos", "Desligados"};
+//	iQtdVarCSeasonal: quantidade de variaveis sazonais
 ProcessoU(mU, const iValue, const sName, const iQtdLags, const iRegDependente, const sVarSufix, const asTipo, const iQtdVarCSeasonal) {
     println("Processo U iniciado");
     decl iContRows, iContCols, iContVar, sParamName, index, asConstants;
-    //asTipo = {"Admitidos", "Desligados"};
-    // asConstants = {"Constant", "CSeasonal", "CSeasonal_1", "CSeasonal_2", "CSeasonal_3", "CSeasonal_4", "CSeasonal_5", "CSeasonal_6", "CSeasonal_7", "CSeasonal_8", "CSeasonal_9", "CSeasonal_10"};
+
 	asConstants = {"Constant"};
 
+	// Constroi o vetor de dummies sazonais ex: asConstants = {"Constant", "CSeasonal", "CSeasonal_1", "CSeasonal_2", "CSeasonal_3"};
 	for (iContRows = 0; iContRows < iQtdVarCSeasonal; ++iContRows) {
 		if(iContRows == 0){
 			asConstants = asConstants | {"CSeasonal"};
@@ -97,13 +131,24 @@ ProcessoU(mU, const iValue, const sName, const iQtdLags, const iRegDependente, c
 			asConstants = asConstants | {sprint("CSeasonal_", iContRows)};
 		}
 	}
-	//println(asConstants);
+	//println("asConstants:", asConstants);
 	
     for (iContRows = 0; iContRows < sizeof(asTipo); ++iContRows) {
         // Preenchimento da matrix Lambda
         for (iContCols = 0; iContCols < sizeof(asConstants); ++iContCols) {
-            // determina o nome das variaveis
-            sParamName = sprint(asConstants[iContCols], "@", sVarSufix, iRegDependente, "_", asTipo[iContRows]);
+
+			// determina o nome das variaveis
+			// O Ox tem uma nomenclatura diferente quando temos regressao univariada
+			// por isso o tratamento abaixo
+			if(sizeof(asTipo) == 1)
+			{
+            	sParamName = sprint(asConstants[iContCols]);
+			}
+			else
+			{
+        	    sParamName = sprint(asConstants[iContCols], "@", sVarSufix, iRegDependente, "_", asTipo[iContRows]);
+			}
+			
             index = strfind(sName, sParamName);
 
             if (index > -1) {
@@ -119,6 +164,9 @@ ProcessoU(mU, const iValue, const sName, const iQtdLags, const iRegDependente, c
 //	sName: asParamNames - Nome dos parametros
 //	iRegDependente: Regiao dependente na regressao
 //	sVarSufix: Sufixo do nome da variavael "D_R"
+// 	anoIni: (nao utilizado mais) era utilizado para construcao do vetor de dummies.
+// 	anoFim: (nao utilizado mais) era utilizado para construcao do vetor de dummies.
+//	asTipo: variaveis dependentes ex: asTipo = {"Admitidos", "Desligados"};
 ProcessoIIS(const iValue, const sName, const iRegDependente, const sVarSufix, const anoIni, const anoFim, const asTipo) {
     //(const iValue, const sName, const iQtdLags, const iRegDependente)
     println("Processo Extracao da matriz de saturacao (IIS)");
@@ -136,8 +184,19 @@ ProcessoIIS(const iValue, const sName, const iRegDependente, const sVarSufix, co
             //println(sprint("I:",nCountAno,"(",nCountMes,")"));
             for (nContTipo = 0; nContTipo < sizeof(asTipo); ++nContTipo) {
 
-				whatToLookFor = sprint(asListaDummies[nContTotal], "@", sVarSufix, iRegDependente, "_" , asTipo[nContTipo]);
-				//println("whatToLookFor", whatToLookFor);
+
+				// O Ox tem uma nomenclatura diferente quando temos regressao univariada
+				// por isso o tratamento abaixo
+				if(sizeof(asTipo) == 1)
+				{
+	            	whatToLookFor = sprint(asListaDummies[nContTotal]);
+				}
+				else
+				{
+	        	    whatToLookFor = sprint(asListaDummies[nContTotal], "@", sVarSufix, iRegDependente, "_" , asTipo[nContTipo]);
+				}
+			
+				println("whatToLookFor: ", whatToLookFor);
 				index = find(sName, whatToLookFor);
 
                 // caso tenha achado o indice atualiza a tabela
@@ -146,7 +205,7 @@ ProcessoIIS(const iValue, const sName, const iRegDependente, const sVarSufix, co
                 }
             }
     }
-//	println(mReturn);
+	println(mReturn);
     return mReturn;
 }
 
@@ -154,19 +213,35 @@ ProcessoIIS(const iValue, const sName, const iRegDependente, const sVarSufix, co
 //	sName: asParamNames - Nome dos parametros
 //	iRegDependente: Regiao dependente na regressao
 //	sVarSufix: Sufixo do nome da variavael "D_R"
+//	asTipo: variaveis dependentes ex: asTipo = {"Admitidos", "Desligados"};
+//	iQtdVarDependente: quantidade de variaveis dependentes (geralmente determinado programaticamente no config.ini);
 ProcessoPILongRun(const iValue, const sName, const iRegDependente, const sVarSufix, const asTipo, const iQtdVarDependente) {
     //(const iValue, const sName, const iQtdLags, const iRegDependente)
     println("Processo Extracao da matriz de longo prazo");
     decl nContTipo, nContTotal, iContVar, sParamName, nCountAno, nCountMes, mReturn, index;
     mReturn = zeros(iQtdVarDependente, iQtdVarDependente);
 
-    //asTipo = {"Admitidos", "Desligados"};
+	println("mReturn ProcessoPILongRun", mReturn);
 
     for (nContTipo = 0; nContTipo < sizeof(asTipo); ++nContTipo) {
 
-	//println(sprint("betaZ_", "1", "@", sVarSufix, iRegDependente, "_" , asTipo[nContTipo]));
-	
-        index = find(sName, sprint("betaZ_", "1", "@", sVarSufix, iRegDependente, "_" , asTipo[nContTipo]));
+		// println(sprint("betaZ_", "1", "@", sVarSufix, iRegDependente, "_" , asTipo[nContTipo]));
+
+		// O Ox tem uma nomenclatura diferente quando temos regressao univariada
+		// por isso o tratamento abaixo
+		if(sizeof(asTipo) == 1)
+		{
+			index = find(sName, sprint("betaZ_", "1"));
+		} 
+
+		/****************
+		// ToDo: ESSE PROCESSO ACREDITO QUE PODE SER AUTOMATIZADO.
+		// CONTUDO POR PRATICIDADE ISSO FICA PARA UMA VERSAO POSTERIOR.
+		// POR ENQUANTO VAI SER MANUAL NA QUANTIDADE DE VETORES DE COINTEGRACAO POSSIVEIS.
+		****************/
+
+		index = find(sName, sprint("betaZ_", "1", "@", sVarSufix, iRegDependente, "_" , asTipo[nContTipo]));
+		
         // caso tenha achado o indice atualiza a tabela
         if (index >= 0) {
             mReturn[nContTipo][0] = iValue[index];
@@ -195,13 +270,14 @@ ProcessoPILongRun(const iValue, const sName, const iRegDependente, const sVarSuf
 //	sVarSufix: Sufixo do nome da variavael "D_R"
 //	sMacroSufix: Sufixo do nome da variavael macro {"D"}
 //	aMacoVarNames: Nome d variavel macro
+//	asTipo: variaveis dependentes ex: asTipo = {"Admitidos", "Desligados"};
+//	iQtdVarDependente: quantidade de variaveis dependentes (geralmente determinado programaticamente no config.ini);
 ProcessoMacroVariables(const iValue, const sName, const iQtdLags, const iRegDependente, const sVarSufix, const sMacroSufix, const aMacoVarNames, const asTipo, const iQtdVarDependente) {
     //vParamValues, asParamNames, iQtdLags, iCont, sVarSufix, aMacoVarNames
     println("Processo Extracao das variaveis macroeconomicas (matrix de longo Prazo inclusive)");
-    decl nContTipo, nContLag, nContVar, nContTotal, mReturn, sParamName, index;//nContTotal, iContVar, sParamName, , nCountAno, nCountMes, , ;
-    //println("sName:", sName);
+    decl nContTipo, nContLag, nContVar, nContTotal, mReturn, sParamName, index;
+
     mReturn = zeros(iQtdVarDependente, (rows(aMacoVarNames) * (iQtdLags + 1)));
-    //asTipo = {"Admitidos", "Desligados"};
 
     for (nContTipo = 0; nContTipo < sizeof(asTipo); ++nContTipo) {
         nContTotal = 0;
@@ -209,11 +285,30 @@ ProcessoMacroVariables(const iValue, const sName, const iQtdLags, const iRegDepe
         for (nContLag = 0; nContLag <= iQtdLags; ++nContLag) {
             for (nContVar = 0; nContVar < rows(aMacoVarNames); ++nContVar) {
                 if (nContLag == 0) {
-                    sParamName = sprint(sMacroSufix, aMacoVarNames[nContVar], "@", sVarSufix, iRegDependente, "_", asTipo[nContTipo]);
-                    //	D_R5_Desligado
-                } else {
-                    sParamName = sprint(sMacroSufix, aMacoVarNames[nContVar], "_", nContLag, "@", sVarSufix, iRegDependente, "_", asTipo[nContTipo]);
-                }
+					// Determina o nome do parametro sem lag
+	 				// O Ox tem uma nomenclatura diferente quando temos regressao univariada
+	 				// por isso o tratamento abaixo
+					if(sizeof(asTipo) == 1)
+					{
+	                    sParamName = sprint(sMacroSufix, aMacoVarNames[nContVar]);
+					}
+					else
+					{
+	                    sParamName = sprint(sMacroSufix, aMacoVarNames[nContVar], "@", sVarSufix, iRegDependente, "_", asTipo[nContTipo]);
+					}				 
+				} else {
+					// Determina o nome do parametro COM lag
+					// O Ox tem uma nomenclatura diferente quando temos regressao univariada
+	 				// por isso o tratamento abaixo
+					if(sizeof(asTipo) == 1)
+					{
+	                    sParamName = sprint(sMacroSufix, aMacoVarNames[nContVar], "_", nContLag);
+					}
+					else
+					{
+	                    sParamName = sprint(sMacroSufix, aMacoVarNames[nContVar], "_", nContLag, "@", sVarSufix, iRegDependente, "_", asTipo[nContTipo]);
+					}
+				}
 
                 //println(sParamName);
                 index = find(sName, sParamName);
@@ -230,10 +325,9 @@ ProcessoMacroVariables(const iValue, const sName, const iQtdLags, const iRegDepe
 
 	// println("%r", asTipo, "%c", {"D_Selic", "D_IPCA", "D_PIM", "D_Selic_1", "D_IPCA_1", "D_PIM_1", "D_Selic_2", "D_IPCA_2", "D_PIM_2", "betaMacro"},  mReturn);
     //println(mReturn);
+	//println("mReturn ProcessoMacroVariables", mReturn);
     return mReturn;
 }
-
-
 
 GetRegionNames(const iQtdRegioes, const sVarPrefix, const sVarPosfix) {
     // println("iQtdRegioes: ", iQtdRegioes);
@@ -469,8 +563,9 @@ main() {
 		
         // Vamos utilizar o sufixo "D_" para o modelo em primeira diferenca
         //sVarSufix = "D_";
+		sVarSufix = "";
+		
         //println(model.GetAllNames());
-        //println(sprint(sVarSufix, "R", iCont,"_Desligados"));
 
 		// adiciona variavel dependente (Adminitidos e Desligados)
 		for(iContador = 0; iContador < columns(aVarDependenteNames); ++iContador) {
@@ -537,7 +632,6 @@ main() {
         // determina a janela de tempo do modelo
         model.SetSelSampleByIndex(1, 765);
 		//model.SetSelSampleByDates(20040509, 20181230);
-
 
         // Liga o autometrics
 		// (Mudar flag para TRUE, para estimar todos modelos com IIS)
