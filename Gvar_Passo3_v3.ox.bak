@@ -16,11 +16,11 @@ main()
 		for(iContRegion=1; iContRegion<=iQtdRegioes; ++iContRegion)
 	    {
 			// Carrega a matriz de pesso da regiao.
-			//println("Lendo matrix ", sprint(txMatPathW_Matrix, "W", iContRegion,".mat"));
+			println("Lendo matrix ", sprint(txMatPathW_Matrix, "W", iContRegion,".mat"));
 			mWi = loadmat(sprint(txMatPathW_Matrix, "W", iContRegion,".mat"));
 			
 			// Carrega a Matriz de coeficientes
-			//println("Lendo matrix ", sprint(txMatPathA_Matrix, "A", iContRegion, "_", iCurrentLag, ".mat"));
+			println("Lendo matrix ", sprint(txMatPathA_Matrix, "A", iContRegion, "_", iCurrentLag, ".mat"));
 			mAi_l = loadmat(sprint(txMatPathA_Matrix, "A", iContRegion, "_", iCurrentLag, ".mat"));
 			
 			// primeira passagem, inicializo o G0 e GL
@@ -42,7 +42,7 @@ main()
 	println("Realizando processo de stacking das matrizes U (Cosntantes e Seasons)");
 	for(iContRegion=1; iContRegion<=iQtdRegioes; ++iContRegion)
 	{
-		//println("Lendo matrix ", sprint(txMatPathRawMatrix, sVarSufix, "R", iContRegion, "_U.mat"));
+		println("Lendo matrix ", sprint(txMatPathRawMatrix, sVarSufix, "R", iContRegion, "_U.mat"));
 		mUi = loadmat(sprint(txMatPathRawMatrix, sVarSufix, "R", iContRegion, "_U.mat"));
 
 		// primeira passagem, inicializo o U0 e UL

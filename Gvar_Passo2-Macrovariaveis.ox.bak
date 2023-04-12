@@ -390,9 +390,9 @@ main()
 	}
 
 	// Adiciona a variavel "star"
-	if(TRUE){
-		println("Adicionado ", "mX", " Como variavel independente (X)");
-		model.Select("X", {"mX", 1, iQtdLags});
+	if(FALSE){
+		println("Adicionado ", "D_mX", " Como variavel independente (X)");
+		model.Select("X", {"D_mX", 1, iQtdLags});
 	}
 
 	// ****************

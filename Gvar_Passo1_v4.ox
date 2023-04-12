@@ -196,7 +196,7 @@ ProcessoIIS(const iValue, const sName, const iRegDependente, const sVarSufix, co
 	        	    whatToLookFor = sprint(asListaDummies[nContTotal], "@", sVarSufix, iRegDependente, "_" , asTipo[nContTipo]);
 				}
 			
-				println("whatToLookFor: ", whatToLookFor);
+				//println("whatToLookFor: ", whatToLookFor);
 				index = find(sName, whatToLookFor);
 
                 // caso tenha achado o indice atualiza a tabela
@@ -458,16 +458,9 @@ main() {
 		/* ********* CONTRUCAO DA MATRIZ DE LONGO PRAZO ********* */
         println("(3) Iniciando construcao da variavel beta*Z (Cointegracao) para a regiao ", iCont);
 
-		decl asBetaZ;
-		beta = 0;
-		/*********
-		PROCESSO DESLIGADO POR NAO EXISTIR INFORMACOES DE COINTEGRACAO
-
-		
 		// Leitura do vetor de cointegracao
-        /beta = loadmat(sprint(txCoIntMatPath, sprint("Weak2_CoInt_R", iCont, ".mat")));
+        beta = loadmat(sprint(txCoIntMatPath, sprint("Weak2_CoInt_R", iCont, ".mat")));
 		//println("beta: ", beta);
-
 
 		for (iContador = 0; iContador < columns(aVarDependenteNames); ++iContador) {
 			if(iContador ==0){
@@ -493,8 +486,6 @@ main() {
         }
 
         model.Append(mData * beta', asBetaZ);
-		--------FIM PROCESSO DESLIGADO POR NAO EXISTIR INFORMACOES DE COINTEGRACAO----------*/
-       
 		
 	
 //		model.SaveIn7(sprint("BASEDEBUG_", iCont, "_Fulldatabase"));
