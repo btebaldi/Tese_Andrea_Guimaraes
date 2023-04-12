@@ -1,0 +1,8 @@
+pcgive 700
+data var_macro.bn7
+>Período        1  1  331  1  1 32    var_macro 10-04-2023 22:36:20 date
+>"Indústria Geral"    1  1  331  1  1 2712    var_macro 10-04-2023 22:36:20
+>DLN_pim         1  1  331  1  1 5392    var_macro 10-04-2023 22:36:20
+>Selic           1  1  331  1  1 8072    var_macro 10-04-2023 22:36:20
+>LN_selic        1  1  331  1  1 10752    var_macro 10-04-2023 22:36:20
+>DLN_Selic       1  1  331  1  1 13432    var_macro 10-04-2023 22:36:20
