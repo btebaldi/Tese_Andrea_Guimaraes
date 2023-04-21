@@ -40,10 +40,10 @@ decl aMacroVarNames;
 aMacroVarNames = {"DLPIM", "LSelic"};
 
 // TRUE / FALSE;
-decl is_IIS_ON = FALSE;
-decl IIS_pvalue = 0.00100;
-decl IIS_pvalue = "none";
-//decl IIS_pvalue = "IIS";
+decl is_IIS_ON = TRUE;
+decl IIS_pvalue = 0.000100;
+decl IIS_type = "none";
+//decl IIS_type = "IIS";
 
 decl is_DUMMY_ON = TRUE;
 decl type_DUMMY = "U";

@@ -458,9 +458,6 @@ main() {
 		/* ********* CONTRUCAO DA MATRIZ DE LONGO PRAZO ********* */
         println("(3) Iniciando construcao da variavel beta*Z (Cointegracao) para a regiao ", iCont);
 
-		decl asBetaZ;
-		
-
 		// Leitura do vetor de cointegracao
         beta = loadmat(sprint(txCoIntMatPath, sprint("Weak2_CoInt_R", iCont, ".mat")));
 		//println("beta: ", beta);
@@ -624,15 +621,15 @@ main() {
 
 	
         // determina a janela de tempo do modelo
-        model.SetSelSampleByIndex(1, 765);
-		//model.SetSelSampleByDates(20040509, 20181230);
+        model.SetSelSampleByIndex(1, 228);
+		//model.SetSelSampleByDates(200201, 202208);
 
         // Liga o autometrics
 		// (Mudar flag para TRUE, para estimar todos modelos com IIS)
 		//	ANTIGA CONDICAO:	(iCont == 69) || (iCont == 84) || (iCont == 99) || TRUE
         if (is_IIS_ON) {
 			println("Processo IIS LIGADO para esta regiao");
-            model.Autometrics(IIS_pvalue, "IIS", 1);
+            model.Autometrics(IIS_pvalue, IIS_type, 1);
         } else {
             //model.Autometrics(0.0001, "IIS", 1);
 			println("Processo IIS desligado para esta regiao");
