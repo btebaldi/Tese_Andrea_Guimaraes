@@ -184,7 +184,9 @@ for(i in seq_len(ncol(Actual))){
   
   g1 <- ggplot(tbl) + 
     geom_line(aes(x = date, y = Actual, colour = "Actual")) + 
+    geom_point(aes(x = date, y = Actual, colour = "Actual")) + 
     geom_line(aes(x = date, y = Forecast, colour = "Forecast")) + 
+    geom_point(aes(x = date, y = Forecast, colour = "Forecast")) + 
     theme_bw() + 
     theme(legend.position = "bottom") +
     labs(title = sprintf("%s", Series_name),
