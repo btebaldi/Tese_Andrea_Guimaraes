@@ -32,12 +32,12 @@ txMatPathResult_Matrix = "./mat_files/Result_Matrix/";
 
 txCoIntMatPath = "./mat_files/Cointegration/";
 txDbase = "./database/IPCA-baseOx_v1.in7";
-txDbaseMacroVariables = "./database/db_oil_withSesonal.in7";
+txDbaseMacroVariables = "./database/IPCA-baseOx_v1.in7";
 
 decl aMacroVarNames;
 // aMacroVarNames = {"Macro1", "Macro2", "Macro3"};
 // aMacroVarNames = {"brent", "lnCambio"};
-aMacroVarNames = {};
+aMacroVarNames = {"DLPIM", "LSelic"};
 
 // TRUE / FALSE;
 decl is_IIS_ON = FALSE;
