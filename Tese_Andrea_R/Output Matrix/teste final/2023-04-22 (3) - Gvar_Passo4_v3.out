@@ -1,0 +1,91 @@
+--------------- Ox at 12:01:03 on 22-Apr-2023 ---------------
+
+Ox Professional version 8.20 (Windows_64/U/MT) (C) J.A. Doornik, 1994-2019
+******************************************
+------------------------------------------
+	Configuracao de variaveis
+------------------------------------------
+
+REGIOES
+	Quantidade de lags: 4
+	Quantidade de Regioes: 377
+	Quantidade de Variaveis Dependente: 1
+Variaveis Dependentes:
+[0] = IPCA
+
+DATABASE
+	Macrovariaveis: ./database/IPCA-baseOx_v1.in7
+	Regioes: ./database/IPCA-baseOx_v1.in7
+
+DIRETORIOS
+	W Matrix Dir: ./mat_files/W_mat/
+	Cointeration Matrix Dir: ./mat_files/Cointegration/
+	Raw Matrix Dir: ./mat_files/RawMatrix/
+	A Matrix Dir: ./mat_files/A_Matrix/
+	G Matrix Dir: ./mat_files/G_Matrix/
+	Result Matrix Dir: ./mat_files/Result_Matrix/
+
+Configuracoes
+	is_IIS_ON: 1
+	IIS_pvalue: 0.01
+	is_DUMMY_ON: 1
+	type_DUMMY: X
+******************************************
+GVAR Passo 4 Inicializado
+Carregando matriz G0
+Carregando matrizes stacked (Alpha, IIS, U, D)
+Matrix Alpha_Stacked.mat carregada
+Matrix IIS_Stacked.mat carregada
+Matrix U_Staked.mat carregada
+Matrix D_Staked.mat carregada
+Matrix H_w.mat carregada
+Matrix B_w.mat carregada
+Matrix W_w.mat carregada
+Matrix IIS_w.mat carregada
+Matrix U_w.mat carregada
+Matrix AlphaBeta_w.mat carregada
+Salvando matrizes stacked (Alpha, IIS, U, D)
+Carregando matrizes stacked (G1)
+iQtdVarMacro 2
+Costruindo matriz D_{stk; l} (lag:1)
+Size mHw_lag:2 x 2
+Size mDL_stk:377 x 2
+Size mBWw:2 x 377
+Size mGL:377 x 377
+Size mGy_inv:379 x 379
+Salvando o resultado mGy_inv * mGyL
+Carregando matrizes stacked (G2)
+iQtdVarMacro 2
+Costruindo matriz D_{stk; l} (lag:2)
+Size mHw_lag:2 x 2
+Size mDL_stk:377 x 2
+Size mBWw:2 x 377
+Size mGL:377 x 377
+Size mGy_inv:379 x 379
+Salvando o resultado mGy_inv * mGyL
+Carregando matrizes stacked (G3)
+iQtdVarMacro 2
+Costruindo matriz D_{stk; l} (lag:3)
+Size mHw_lag:2 x 2
+Size mDL_stk:377 x 2
+Size mBWw:2 x 377
+Size mGL:377 x 377
+Size mGy_inv:379 x 379
+Salvando o resultado mGy_inv * mGyL
+Carregando matrizes stacked (G4)
+iQtdVarMacro 2
+Costruindo matriz D_{stk; l} (lag:4)
+Size mHw_lag:2 x 2
+Size mDL_stk:377 x 2
+Size mBWw:2 x 377
+Size mGL:377 x 377
+Size mGy_inv:379 x 379
+Salvando o resultado mGy_inv * mGyL
+Size mU_w:2 x 12
+Size mU_Stacked:377 x 12
+Size mIIS_w:2 x 331
+Size mIIS_Stacked:377 x 331
+Salvando o resultado mGy_inv * mC
+Salvando o resultado mGy_inv * mL
+***************************************************
+GVAR Passo 4 Finalizado

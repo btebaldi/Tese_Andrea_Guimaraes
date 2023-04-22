@@ -109,11 +109,11 @@ FSR_11 <- FSR_11[(idx-11):(total_rows-11), ]
 FSR_12 <- FSR_12[(idx-12):(total_rows-12), ]
 FSR_13 <- FSR_13[(idx-13):(total_rows-13), ]
 
-Forecast.SR = FSR_01 + FSR_02 + FSR_03 + FSR_04 +
-  FSR_05 + FSR_06 + FSR_07 + FSR_08 +
-  FSR_09 + FSR_10 + FSR_11 + FSR_12 + FSR_13
+# Forecast.SR = FSR_01 + FSR_02 + FSR_03 + FSR_04 +
+#   FSR_05 + FSR_06 + FSR_07 + FSR_08 +
+#   FSR_09 + FSR_10 + FSR_11 + FSR_12 + FSR_13
 
-# Forecast.SR = FSR_01 + FSR_02 + FSR_03 + FSR_04
+Forecast.SR = FSR_01 + FSR_02 + FSR_03 + FSR_04
 
 # regulariza o nome de colunas e linhas
 colnames(Forecast.SR) <- colnames(Y)
@@ -168,12 +168,30 @@ Forecast <- Forecast.SR + Forecast.Dm
 
 Actual <- Y[idx:total_rows, ]
 
+coluna <- 79
+summary(FSR_01[, coluna]) 
+summary(FSR_02[, coluna])
+summary(FSR_03[, coluna]) 
+summary(FSR_04[, coluna]) 
+summary(FSR_05[, coluna]) 
+summary(FSR_06[, coluna])
+summary(FSR_07[, coluna]) 
+summary(FSR_08[, coluna]) 
+summary(FSR_09[, coluna]) 
+summary(FSR_10[, coluna])
+summary(FSR_11[, coluna]) 
+summary(FSR_12[, coluna]) 
+summary(FSR_13[, coluna])
+
 
 
 # Avaliação ---------------------------------------------------------------
 
 i <- 1
 for(i in seq_len(ncol(Actual))){
+  
+  # if(!(i %in% c(77, 77+2)))
+  # {next}
   
   Series_name <- colnames(Actual)[i]
   dates <- rownames(Actual) %>% lubridate::ymd(truncated = 1)
@@ -202,10 +220,6 @@ for(i in seq_len(ncol(Actual))){
          dpi = 100)
   
 }
-
-
-
-
 
 
 

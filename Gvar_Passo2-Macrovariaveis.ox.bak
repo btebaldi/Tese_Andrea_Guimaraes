@@ -343,7 +343,7 @@ main()
 	{
 		println("Adicionado Diff da variavel: ", aMacroVarNames[nCont]);
 		model.Append(diff(model.GetVar(aMacroVarNames[nCont])), {sprint("D_", aMacroVarNames[nCont])});
-		//println("%c", sprint("D_", aMacroVarNames[nCont]), diff(model.GetVar(aMacroVarNames[nCont])));
+		println("%c", sprint("D_", aMacroVarNames[nCont]), diff(model.GetVar(aMacroVarNames[nCont])));
    	}
 	
 	
@@ -352,7 +352,7 @@ main()
 
 	println("Adicionando variavel D_mX ");	
 	model.Append(diff(mX), {"D_mX"});
-
+												   
 	if(rows(aMacroVarNames) > 1){
 		// ****************
 		// Processo comentado pois foi verificado que nao existe cointegracao entre as variaveis externas e as macrovariaveis.
@@ -421,7 +421,7 @@ main()
     }
 		
 	// determina a janela de tempo do modelo
-	model.SetSelSampleByIndex(1, 228);
+	model.SetSelSampleByIndex(1, 227);
 	// model.SetSelSampleByIndex(model.GetSelStart(), model.GetSelEnd());
 	// model.SetSample(1995, 1, 2016, 12);
 	//	println("GetSelStart", model.GetSelStart());

@@ -37,18 +37,18 @@ txDbaseMacroVariables = "./database/IPCA-baseOx_v1.in7";
 decl aMacroVarNames;
 // aMacroVarNames = {"Macro1", "Macro2", "Macro3"};
 // aMacroVarNames = {"brent", "lnCambio"};
-aMacroVarNames = {"DLPIM", "LSelic"};
+aMacroVarNames = {"DLPIM", "DLselic"};
 
 // TRUE / FALSE;
 decl is_IIS_ON = TRUE;
 
 // Quanto menor o pvalue menos variaveis sao mantidas
-decl IIS_pvalue = 0.0500;
+decl IIS_pvalue = 0.0100;
 decl IIS_type = "none";
 //decl IIS_type = "IIS";
 
 decl is_DUMMY_ON = TRUE;
-decl type_DUMMY = "U";
+decl type_DUMMY = "X";
 
 // Ativa a impressao de
 #define pritnConfig

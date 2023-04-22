@@ -352,7 +352,7 @@ main()
 
 	println("Adicionando variavel D_mX ");	
 	model.Append(diff(mX), {"D_mX"});
-
+												   
 	if(rows(aMacroVarNames) > 1){
 		// ****************
 		// Processo comentado pois foi verificado que nao existe cointegracao entre as variaveis externas e as macrovariaveis.

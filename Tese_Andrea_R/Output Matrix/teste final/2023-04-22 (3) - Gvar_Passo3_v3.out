@@ -1,0 +1,43 @@
+--------------- Ox at 12:00:22 on 22-Apr-2023 ---------------
+
+Ox Professional version 8.20 (Windows_64/U/MT) (C) J.A. Doornik, 1994-2019
+******************************************
+------------------------------------------
+	Configuracao de variaveis
+------------------------------------------
+
+REGIOES
+	Quantidade de lags: 4
+	Quantidade de Regioes: 377
+	Quantidade de Variaveis Dependente: 1
+Variaveis Dependentes:
+[0] = IPCA
+
+DATABASE
+	Macrovariaveis: ./database/IPCA-baseOx_v1.in7
+	Regioes: ./database/IPCA-baseOx_v1.in7
+
+DIRETORIOS
+	W Matrix Dir: ./mat_files/W_mat/
+	Cointeration Matrix Dir: ./mat_files/Cointegration/
+	Raw Matrix Dir: ./mat_files/RawMatrix/
+	A Matrix Dir: ./mat_files/A_Matrix/
+	G Matrix Dir: ./mat_files/G_Matrix/
+	Result Matrix Dir: ./mat_files/Result_Matrix/
+
+Configuracoes
+	is_IIS_ON: 1
+	IIS_pvalue: 0.01
+	is_DUMMY_ON: 1
+	type_DUMMY: X
+******************************************
+Saving G0 matrix
+Saving G1 matrix
+Saving G2 matrix
+Saving G3 matrix
+Saving G4 matrix
+Realizando processo de stacking das matrizes U (Cosntantes e Seasons)
+Realizando processo de stacking das matrizes Alpha
+Realizando processo de stacking das matrizes IIS
+Realizando processo de stacking da matrizes D
+Processo finalizado.
