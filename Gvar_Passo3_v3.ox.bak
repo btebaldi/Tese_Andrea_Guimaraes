@@ -16,11 +16,11 @@ main()
 		for(iContRegion=1; iContRegion<=iQtdRegioes; ++iContRegion)
 	    {
 			// Carrega a matriz de pesso da regiao.
-			println("Lendo matrix ", sprint(txMatPathW_Matrix, "W", iContRegion,".mat"));
+			//println("Lendo matrix ", sprint(txMatPathW_Matrix, "W", iContRegion,".mat"));
 			mWi = loadmat(sprint(txMatPathW_Matrix, "W", iContRegion,".mat"));
 			
 			// Carrega a Matriz de coeficientes
-			println("Lendo matrix ", sprint(txMatPathA_Matrix, "A", iContRegion, "_", iCurrentLag, ".mat"));
+			//println("Lendo matrix ", sprint(txMatPathA_Matrix, "A", iContRegion, "_", iCurrentLag, ".mat"));
 			mAi_l = loadmat(sprint(txMatPathA_Matrix, "A", iContRegion, "_", iCurrentLag, ".mat"));
 			
 			// primeira passagem, inicializo o G0 e GL
@@ -42,7 +42,7 @@ main()
 	println("Realizando processo de stacking das matrizes U (Cosntantes e Seasons)");
 	for(iContRegion=1; iContRegion<=iQtdRegioes; ++iContRegion)
 	{
-		println("Lendo matrix ", sprint(txMatPathRawMatrix, sVarSufix, "R", iContRegion, "_U.mat"));
+		//println("Lendo matrix ", sprint(txMatPathRawMatrix, sVarSufix, "R", iContRegion, "_U.mat"));
 		mUi = loadmat(sprint(txMatPathRawMatrix, sVarSufix, "R", iContRegion, "_U.mat"));
 
 		// primeira passagem, inicializo o U0 e UL
@@ -64,15 +64,15 @@ main()
 	println("Realizando processo de stacking das matrizes Alpha");
 	for(iContRegion=1; iContRegion<=iQtdRegioes; ++iContRegion)
 	{
-		println("Lendo matrix ", sprint(txMatPathRawMatrix, sVarSufix, "R", iContRegion, "_Alpha.mat"));
+		//println("Lendo matrix ", sprint(txMatPathRawMatrix, sVarSufix, "R", iContRegion, "_Alpha.mat"));
 		mAlphai = loadmat(sprint(txMatPathRawMatrix, sVarSufix, "R", iContRegion, "_Alpha.mat"));
 		
 		//mBetai = loadmat(sprint(txCoIntMatPath, "CoInt_R", iContRegion, ".mat"));
 
-		println("Lendo matrix ", sprint(txCoIntMatPath, "Weak2_CoInt_R", iContRegion, ".mat"));
+		//println("Lendo matrix ", sprint(txCoIntMatPath, "Weak2_CoInt_R", iContRegion, ".mat"));
 		mBetai = loadmat(sprint(txCoIntMatPath, "Weak2_CoInt_R", iContRegion, ".mat"));
 
-		println("Lendo matrix ", sprint(txMatPathW_Matrix, "W", iContRegion, ".mat"));
+		//println("Lendo matrix ", sprint(txMatPathW_Matrix, "W", iContRegion, ".mat"));
 		mWi = loadmat(sprint(txMatPathW_Matrix, "W", iContRegion, ".mat"));
 
 		// Regularizacao do beta para operacionalizacao.
@@ -93,7 +93,7 @@ main()
 			aAlphaiStack = aAlphaiStack | mAlphai * mBetai * mWi;
 		}
 
-		println(sprint("Saving G_alpha (region ",iContRegion, ")"));
+		//println(sprint("Saving G_alpha (region ",iContRegion, ")"));
 		savemat(sprint(txMatPathG_Matrix, "G_alpha", ".mat"), aAlphaiStack);
 	}
 
@@ -114,7 +114,7 @@ main()
 			mIISiStack = mIISiStack | mIISi;
 		}
 
-		println(sprint("Saving IIS (region ",iContRegion, ")"));
+		//println(sprint("Saving IIS (region ",iContRegion, ")"));
 		savemat(sprint(txMatPathG_Matrix, "IIS_Stacked", ".mat"), mIISiStack);
 	}
 
@@ -134,7 +134,7 @@ main()
 			mDStack = mDStack | mDi;
 		}
 
-		println(sprint("Saving D_Stacked (region ",iContRegion, ")"));
+		//println(sprint("Saving D_Stacked (region ",iContRegion, ")"));
 		savemat(sprint(txMatPathG_Matrix, "D_Stacked", ".mat"), mDStack);
 	}
 

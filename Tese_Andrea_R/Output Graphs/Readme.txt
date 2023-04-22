@@ -1,1 +1,0 @@
-Graficos de forecast serao colocados neste diretorio

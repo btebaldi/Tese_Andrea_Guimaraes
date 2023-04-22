@@ -109,11 +109,11 @@ FSR_11 <- FSR_11[(idx-11):(total_rows-11), ]
 FSR_12 <- FSR_12[(idx-12):(total_rows-12), ]
 FSR_13 <- FSR_13[(idx-13):(total_rows-13), ]
 
-# Forecast.SR = FSR_01 + FSR_02 + FSR_03 + FSR_04 +
-#   FSR_05 + FSR_06 + FSR_07 + FSR_08 +
-#   FSR_09 + FSR_10 + FSR_11 + FSR_12 + FSR_13
+Forecast.SR = FSR_01 + FSR_02 + FSR_03 + FSR_04 +
+  FSR_05 + FSR_06 + FSR_07 + FSR_08 +
+  FSR_09 + FSR_10 + FSR_11 + FSR_12 + FSR_13
 
-Forecast.SR = FSR_01 + FSR_02 + FSR_03 + FSR_04
+# Forecast.SR = FSR_01 + FSR_02 + FSR_03 + FSR_04
 
 # regulariza o nome de colunas e linhas
 colnames(Forecast.SR) <- colnames(Y)
@@ -164,7 +164,7 @@ row.names(Forecast.Dm) <- row.names(Y[idx:total_rows, ])
 
 # Calcula forecast --------------------------------------------------------
 
-Forecast <- Forecast.SR
+Forecast <- Forecast.SR + Forecast.Dm
 
 Actual <- Y[idx:total_rows, ]
 

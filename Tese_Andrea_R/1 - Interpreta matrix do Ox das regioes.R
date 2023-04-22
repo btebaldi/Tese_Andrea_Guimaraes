@@ -20,6 +20,9 @@ library(stringr)
 
 # Diretorio com as matrizes do Ox
 main_dir <- file.path("../mat_files/Result_Matrix/")
+# main_dir <- file.path("C:/Users/bteba/Documents/GitHub/Tese_Andrea_Guimaraes_old/mat_files/Result_Matrix")
+
+
 
 # Diretorio para gravação das matrizes do R
 output_dir <- file.path("./Output Matrix/")

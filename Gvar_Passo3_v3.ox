@@ -55,7 +55,7 @@ main()
 			mUStack = mUStack | mUi;
 		}
 
-		println("Saving U_Stacked (region ", iContRegion, ")");
+		//println("Saving U_Stacked (region ", iContRegion, ")");
 		savemat(sprint(txMatPathG_Matrix, "U_Stacked", ".mat"), mUStack);
 	}
 
@@ -64,15 +64,15 @@ main()
 	println("Realizando processo de stacking das matrizes Alpha");
 	for(iContRegion=1; iContRegion<=iQtdRegioes; ++iContRegion)
 	{
-		println("Lendo matrix ", sprint(txMatPathRawMatrix, sVarSufix, "R", iContRegion, "_Alpha.mat"));
+		//println("Lendo matrix ", sprint(txMatPathRawMatrix, sVarSufix, "R", iContRegion, "_Alpha.mat"));
 		mAlphai = loadmat(sprint(txMatPathRawMatrix, sVarSufix, "R", iContRegion, "_Alpha.mat"));
 		
 		//mBetai = loadmat(sprint(txCoIntMatPath, "CoInt_R", iContRegion, ".mat"));
 
-		println("Lendo matrix ", sprint(txCoIntMatPath, "Weak2_CoInt_R", iContRegion, ".mat"));
+		//println("Lendo matrix ", sprint(txCoIntMatPath, "Weak2_CoInt_R", iContRegion, ".mat"));
 		mBetai = loadmat(sprint(txCoIntMatPath, "Weak2_CoInt_R", iContRegion, ".mat"));
 
-		println("Lendo matrix ", sprint(txMatPathW_Matrix, "W", iContRegion, ".mat"));
+		//println("Lendo matrix ", sprint(txMatPathW_Matrix, "W", iContRegion, ".mat"));
 		mWi = loadmat(sprint(txMatPathW_Matrix, "W", iContRegion, ".mat"));
 
 		// Regularizacao do beta para operacionalizacao.
@@ -93,7 +93,7 @@ main()
 			aAlphaiStack = aAlphaiStack | mAlphai * mBetai * mWi;
 		}
 
-		println(sprint("Saving G_alpha (region ",iContRegion, ")"));
+		//println(sprint("Saving G_alpha (region ",iContRegion, ")"));
 		savemat(sprint(txMatPathG_Matrix, "G_alpha", ".mat"), aAlphaiStack);
 	}
 
@@ -114,7 +114,7 @@ main()
 			mIISiStack = mIISiStack | mIISi;
 		}
 
-		println(sprint("Saving IIS (region ",iContRegion, ")"));
+		//println(sprint("Saving IIS (region ",iContRegion, ")"));
 		savemat(sprint(txMatPathG_Matrix, "IIS_Stacked", ".mat"), mIISiStack);
 	}
 
@@ -134,7 +134,7 @@ main()
 			mDStack = mDStack | mDi;
 		}
 
-		println(sprint("Saving D_Stacked (region ",iContRegion, ")"));
+		//println(sprint("Saving D_Stacked (region ",iContRegion, ")"));
 		savemat(sprint(txMatPathG_Matrix, "D_Stacked", ".mat"), mDStack);
 	}
 
