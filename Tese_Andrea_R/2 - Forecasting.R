@@ -42,7 +42,7 @@ if(sum(M_L^2) == 0){
 }
 
 # Carega as matrizes de lag-1 a lag-13
-for(i in 1:13){
+for(i in 1:4){
   
   # determina nome da variavel (a ser gravado no R) e nome do arquivo (a ser lido do diretorio)
   nome_arquivo <- sprintf("mGy_inv_X_mGyL%d.rds", i)
@@ -79,15 +79,15 @@ FSR_01 <- Y %*% t(mLag_01)
 FSR_02 <- Y %*% t(mLag_02)
 FSR_03 <- Y %*% t(mLag_03)
 FSR_04 <- Y %*% t(mLag_04)
-FSR_05 <- Y %*% t(mLag_05)
-FSR_06 <- Y %*% t(mLag_06)
-FSR_07 <- Y %*% t(mLag_07)
-FSR_08 <- Y %*% t(mLag_08)
-FSR_09 <- Y %*% t(mLag_09)
-FSR_10 <- Y %*% t(mLag_10)
-FSR_11 <- Y %*% t(mLag_11)
-FSR_12 <- Y %*% t(mLag_12)
-FSR_13 <- Y %*% t(mLag_13)
+# FSR_05 <- Y %*% t(mLag_05)
+# FSR_06 <- Y %*% t(mLag_06)
+# FSR_07 <- Y %*% t(mLag_07)
+# FSR_08 <- Y %*% t(mLag_08)
+# FSR_09 <- Y %*% t(mLag_09)
+# FSR_10 <- Y %*% t(mLag_10)
+# FSR_11 <- Y %*% t(mLag_11)
+# FSR_12 <- Y %*% t(mLag_12)
+# FSR_13 <- Y %*% t(mLag_13)
 
 
 # Ajuste dos lags.
@@ -99,15 +99,15 @@ FSR_01 <- FSR_01[(idx-1):(total_rows-1), ]
 FSR_02 <- FSR_02[(idx-2):(total_rows-2), ]
 FSR_03 <- FSR_03[(idx-3):(total_rows-3), ]
 FSR_04 <- FSR_04[(idx-4):(total_rows-4), ]
-FSR_05 <- FSR_05[(idx-5):(total_rows-5), ]
-FSR_06 <- FSR_06[(idx-6):(total_rows-6), ]
-FSR_07 <- FSR_07[(idx-7):(total_rows-7), ]
-FSR_08 <- FSR_08[(idx-8):(total_rows-8), ]
-FSR_09 <- FSR_09[(idx-9):(total_rows-9), ]
-FSR_10 <- FSR_10[(idx-10):(total_rows-10), ]
-FSR_11 <- FSR_11[(idx-11):(total_rows-11), ]
-FSR_12 <- FSR_12[(idx-12):(total_rows-12), ]
-FSR_13 <- FSR_13[(idx-13):(total_rows-13), ]
+# FSR_05 <- FSR_05[(idx-5):(total_rows-5), ]
+# FSR_06 <- FSR_06[(idx-6):(total_rows-6), ]
+# FSR_07 <- FSR_07[(idx-7):(total_rows-7), ]
+# FSR_08 <- FSR_08[(idx-8):(total_rows-8), ]
+# FSR_09 <- FSR_09[(idx-9):(total_rows-9), ]
+# FSR_10 <- FSR_10[(idx-10):(total_rows-10), ]
+# FSR_11 <- FSR_11[(idx-11):(total_rows-11), ]
+# FSR_12 <- FSR_12[(idx-12):(total_rows-12), ]
+# FSR_13 <- FSR_13[(idx-13):(total_rows-13), ]
 
 # Forecast.SR = FSR_01 + FSR_02 + FSR_03 + FSR_04 +
 #   FSR_05 + FSR_06 + FSR_07 + FSR_08 +
@@ -173,15 +173,15 @@ summary(FSR_01[, coluna])
 summary(FSR_02[, coluna])
 summary(FSR_03[, coluna]) 
 summary(FSR_04[, coluna]) 
-summary(FSR_05[, coluna]) 
-summary(FSR_06[, coluna])
-summary(FSR_07[, coluna]) 
-summary(FSR_08[, coluna]) 
-summary(FSR_09[, coluna]) 
-summary(FSR_10[, coluna])
-summary(FSR_11[, coluna]) 
-summary(FSR_12[, coluna]) 
-summary(FSR_13[, coluna])
+# summary(FSR_05[, coluna]) 
+# summary(FSR_06[, coluna])
+# summary(FSR_07[, coluna]) 
+# summary(FSR_08[, coluna]) 
+# summary(FSR_09[, coluna]) 
+# summary(FSR_10[, coluna])
+# summary(FSR_11[, coluna]) 
+# summary(FSR_12[, coluna]) 
+# summary(FSR_13[, coluna])
 
 
 
