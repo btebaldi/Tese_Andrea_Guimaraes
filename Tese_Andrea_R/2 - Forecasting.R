@@ -19,7 +19,7 @@ library(ggplot2)
 library(lubridate)
 
 # Diretorio com as matrizes 
-matrix_dir <- file.path("./Output Matrix/")
+matrix_dir <- file.path("./Output Matrix/teste final/")
 
 
 
@@ -65,7 +65,7 @@ rm(list = c("M",  "M_c", "i", "nome_arquivo","nome_variavel", "matrix_dir"))
 # Forecast dos lags de Y --------------------------------------------------
 
 # Carregando a matrix de Y
-forecast_base <- read_excel("C:/Users/bteba/Downloads/IPCA-baseOx_forecast.xlsx", na = c("#N/A"))
+forecast_base <- read_excel("../database/IPCA-baseOx_forecast.xlsx", na = c("#N/A"))
 colnames(forecast_base)[1] <- "Period"
 
 
@@ -168,37 +168,86 @@ Forecast <- Forecast.SR + Forecast.Dm
 
 Actual <- Y[idx:total_rows, ]
 
-coluna <- 79
-summary(FSR_01[, coluna]) 
-summary(FSR_02[, coluna])
-summary(FSR_03[, coluna]) 
-summary(FSR_04[, coluna]) 
-# summary(FSR_05[, coluna]) 
-# summary(FSR_06[, coluna])
-# summary(FSR_07[, coluna]) 
-# summary(FSR_08[, coluna]) 
-# summary(FSR_09[, coluna]) 
-# summary(FSR_10[, coluna])
-# summary(FSR_11[, coluna]) 
-# summary(FSR_12[, coluna]) 
-# summary(FSR_13[, coluna])
+
+writexl::write_xlsx(x = as_tibble(Forecast), path = "Forecast_items.xlsx")
+
+# Recostrucao do IPCA -----------------------------------------------------
+
+# Leitura dos pesos do IPCA
+tbl_peso_ipca <- read_excel("../database/pesos_ipca 1.xlsx", 
+                            sheet = "Dicionario Item",
+                            range = "A1:U378")
+
+matriz_peso_ipca <- tbl_peso_ipca %>% select(-1) %>% data.matrix() %>% t()
+colnames(matriz_peso_ipca) <- paste("R", 1:377, "IPCA", sep="_")
+
+# declaro matrizes de valores de Forecast e valores atuais
+IPCA_Forecast <- matrix(NA, ncol = 1, nrow = 20)
+IPCA_Actual <- matrix(NA, ncol = 1, nrow = 20)
+
+i <- 1 
+for (i in 1:20){
+  
+  matriz_peso_ipca_mes <- matriz_peso_ipca[i, ] %>% t()
+  
+  matriz_peso_ipca_mes <- matriz_peso_ipca_mes#/sum(matriz_peso_ipca_mes)
+  dim(matriz_peso_ipca_mes)
+  
+  IPCA_Forecast[i, 1] <- Forecast[i, -c(1, 2)] %*% t(matriz_peso_ipca_mes)
+  IPCA_Actual[i, 1] <- Actual[i, -c(1, 2)] %*% t(matriz_peso_ipca_mes)
+  
+}
+
+IPCA_Forecast
+IPCA_Actual
+
+
+tbl <- tibble(date = lubridate::ymd(row.names(matriz_peso_ipca), truncated = 1),
+              Actual = IPCA_Actual,
+              Forecast = IPCA_Forecast)
+
+plot(tbl)
+
+g1 <- ggplot(tbl) + 
+  geom_line(aes(x = date, y = Actual, colour = "Actual")) + 
+  geom_point(aes(x = date, y = Actual, colour = "Actual")) + 
+  geom_line(aes(x = date, y = Forecast, colour = "Forecast")) + 
+  geom_point(aes(x = date, y = Forecast, colour = "Forecast")) + 
+  theme_bw() + 
+  theme(legend.position = "bottom") +
+  labs(title = "IPCA vs Previsão",
+       y=NULL,
+       x=NULL,
+       colour = NULL)
+g1
+
+ggsave(filename = sprintf("./Output Graphs/%s.png", "Previsao IPCA"),
+       plot = g1,
+       units = "in",
+       width = 8, height = 6,
+       dpi = 100)
 
 
 
 # Avaliação ---------------------------------------------------------------
 
+dicionario <- read_excel("../database/dicionario.xlsx")
+
+
+
 i <- 1
-for(i in seq_len(ncol(Actual))){
+for(i in 1:377){
   
-  # if(!(i %in% c(77, 77+2)))
-  # {next}
+  variable_name <- sprintf("R_%d_IPCA", i)
+  Series_name <- dicionario %>% filter(NOME_OX==variable_name) %>% pull(Nome_Item)
   
-  Series_name <- colnames(Actual)[i]
+  cat(sprintf("Fazendo o grafico do %s", Series_name), "\n")
+  
   dates <- rownames(Actual) %>% lubridate::ymd(truncated = 1)
   
   tbl <- tibble(date = dates,
-                Actual = Actual[ , Series_name],
-                Forecast = Forecast[ , Series_name])
+                Actual = Actual[ , variable_name],
+                Forecast = Forecast[ , variable_name])
   
   g1 <- ggplot(tbl) + 
     geom_line(aes(x = date, y = Actual, colour = "Actual")) + 
@@ -207,18 +256,18 @@ for(i in seq_len(ncol(Actual))){
     geom_point(aes(x = date, y = Forecast, colour = "Forecast")) + 
     theme_bw() + 
     theme(legend.position = "bottom") +
-    labs(title = sprintf("%s", Series_name),
+    labs(title = sprintf("Previsão do %s", Series_name),
+         subtitle = "IPCA vs Previsão",
          y=NULL,
          x=NULL,
          colour = NULL)
   
   
-  ggsave(filename = sprintf("./Output Graphs/%s.png", Series_name),
+  ggsave(filename = sprintf("./Output Graphs/%d_%s.png", i, stringr::str_replace(Series_name, pattern = "[/]", "_")),
          plot = g1,
          units = "in",
          width = 8, height = 6,
          dpi = 100)
-  
 }
 
 
